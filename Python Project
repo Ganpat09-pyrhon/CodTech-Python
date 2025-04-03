@@ -1,0 +1,26 @@
+import requests
+import json
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# API Key and Endpoint
+API_KEY = 'your_api_key_here'
+CITY = 'New York'
+BASE_URL = f'http://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}&units=metric'
+
+# Fetch Data from API
+response = requests.get(BASE_URL)
+data = response.json()
+
+if response.status_code == 200:
+    temp = data['main']['temp']
+    humidity = data['main']['humidity']
+    pressure = data['main']['pressure']
+    weather_desc = data['weather'][0]['description']
+    print(f"City: {CITY}
+Temperature: {temp}°C
+Humidity: {humidity}%
+Pressure: {pressure} hPa
+Weather: {weather_desc}")
+else:
+    print("Error fetching data")
